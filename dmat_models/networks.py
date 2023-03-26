@@ -12,7 +12,7 @@ from models.help_funcs import Transformer, TransformerDecoder, TwoLayerConv2d
 # from models.ps_vit import ps_vit
 from cc_attention.functions import CrissCrossAttention
 from mixformer.mixformer import Block
-from models.PSTNet import PSTNet
+from dmat_models import DMAT
 ###############################################################################
 # Helper Functions
 ###############################################################################
@@ -127,9 +127,9 @@ def define_G(args, init_type='normal', init_gain=0.02, gpu_ids=[]):
         net = ResNet(input_nc=3, output_nc=2, output_sigmoid=False)
 
 
-    elif args.net_G == 'PSTNet':
-        net = PSTNet(input_nc=3, output_nc=2, token_len=4, resnet_stages_num=4,
-                            with_pos='learned', enc_depth=1, dec_depth=8)
+    elif args.net_G == 'DMATNet':
+        net = DMAT(input_nc=3, output_nc=2, token_len=4, resnet_stages_num=4,num_ps=4,
+                            with_pos='learned')
 
     else:
         raise NotImplementedError('Generator model name [%s] is not recognized' % args.net_G)
